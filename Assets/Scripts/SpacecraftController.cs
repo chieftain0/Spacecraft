@@ -76,11 +76,11 @@ public class SpacecraftController : MonoBehaviour
         }
         if (ManualControllMode)
         {
-            ControlModeUI.text = "MANUAL control";
+            //ControlModeUI.text = "MANUAL control";
         }
         else
         {
-            ControlModeUI.text = "ARCADE control";
+            //ControlModeUI.text = "ARCADE control";
         }
 
 
