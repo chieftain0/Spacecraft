@@ -8,7 +8,10 @@ public class SwarmManager : MonoBehaviour
     [SerializeField] BoidController boidPrefab;
     [SerializeField] int spawnBoids;
     [SerializeField] float initialSpread;
-    [SerializeField] Transform targetObject;
+
+    public Transform targetObject;
+    public Transform safeSpot;
+
 
     [Header("Internal")]
     private List<BoidController> _boids;
