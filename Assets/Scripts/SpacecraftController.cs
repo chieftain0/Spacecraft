@@ -88,6 +88,8 @@ public class SpacecraftController : MonoBehaviour
         RX = (float)(Math.Round(Input.GetAxis("RX"), 1));
         RY = (float)(Math.Round(-Input.GetAxis("RY"), 1));
 
+        
+
         if (Input.GetButton("LB"))
         {
             LB = -1f;
@@ -112,8 +114,6 @@ public class SpacecraftController : MonoBehaviour
         TRIGGERS = (float)(Math.Round(LT + RT, 1));
 
 
-
-
         if (Input.GetButtonDown("START"))
         {
             ControllMode++;
@@ -121,17 +121,9 @@ public class SpacecraftController : MonoBehaviour
             {
                 ControllMode = 0;
             }
-            if (ControllMode == 0)
+            if (SceneManager.GetActiveScene().name == "Space")
             {
-                ControlModeUI.text = "VTOL FULL control";
-            }
-            else if (ControllMode == 1)
-            {
-                ControlModeUI.text = "VTOL ARCADE control";
-            }
-            else if (ControllMode == 2)
-            {
-                ControlModeUI.text = "JET control";
+                ControllMode = 2;
             }
         }
         if (ControllMode == 0)
@@ -172,5 +164,19 @@ public class SpacecraftController : MonoBehaviour
             }
 
         }
+
+        if (ControllMode == 0)
+        {
+            ControlModeUI.text = "VTOL FULL control";
+        }
+        else if (ControllMode == 1)
+        {
+            ControlModeUI.text = "VTOL ARCADE control";
+        }
+        else if (ControllMode == 2)
+        {
+            ControlModeUI.text = "JET control";
+        }
+
     }
 }
