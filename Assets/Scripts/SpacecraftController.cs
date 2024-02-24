@@ -10,6 +10,10 @@ public class SpacecraftController : MonoBehaviour
 {
     public TMP_Text ControlModeUI;
     public TMP_Text GeneralMessage;
+    public TMP_Text VelocityIndicator;
+
+    public GameObject Afterburner1;
+    public GameObject Afterburner2;
 
     public float thrust = 0.3f;
     public float torque = 0.1f;
@@ -36,6 +40,8 @@ public class SpacecraftController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Afterburner1.SetActive(false);
+        Afterburner2.SetActive(false);
 
         if (ControllMode == 0)
         {
@@ -68,9 +74,10 @@ public class SpacecraftController : MonoBehaviour
         {
             GeneralMessage.text = "";
         }
+        VelocityIndicator.text = Math.Round(rb.velocity.magnitude).ToString() + " m/s";
 
 
-        
+
 
     }
 
@@ -152,6 +159,17 @@ public class SpacecraftController : MonoBehaviour
             rb.AddTorque(-transform.forward * torque * RY);
             rb.AddTorque(-transform.right * torque * RX);
             rb.AddTorque(transform.up * torque * BUTTONS);
+
+            if(LY > 0.8)
+            {
+                Afterburner1.SetActive(true); 
+                Afterburner2.SetActive(true);
+            }
+            else
+            {
+                Afterburner1.SetActive(false); 
+                Afterburner2.SetActive(false);
+            }
 
         }
     }
