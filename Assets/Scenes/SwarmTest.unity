@@ -570,19 +570,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControlModeUI: {fileID: 0}
+  GeneralMessage: {fileID: 0}
+  VelocityIndicator: {fileID: 0}
+  Afterburner1: {fileID: 0}
+  Afterburner2: {fileID: 0}
   thrust: 0.3
   torque: 5
-  ManualControllMode: 0
+  ControllMode: 0
   LX: 0
   LY: 0
   RX: 0
   RY: 0
-  LB: 0
-  RB: 0
   BUTTONS: 0
-  LT: 0
-  RT: 0
   TRIGGERS: 0
+  yCoordinateToFly: 0
 --- !u!65 &310947272
 BoxCollider:
   m_ObjectHideFlags: 0
