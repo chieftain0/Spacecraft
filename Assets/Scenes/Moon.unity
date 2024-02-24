@@ -7758,6 +7758,7 @@ MonoBehaviour:
   RY: 0
   BUTTONS: 0
   TRIGGERS: 0
+  yCoordinateToFly: 200
 --- !u!65 &2086690070
 BoxCollider:
   m_ObjectHideFlags: 0

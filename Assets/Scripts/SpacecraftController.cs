@@ -34,6 +34,8 @@ public class SpacecraftController : MonoBehaviour
     float RT;
     public float TRIGGERS;
 
+    public float yCoordinateToFly;
+
     Rigidbody rb;
 
     // Start is called before the first frame update
@@ -42,7 +44,10 @@ public class SpacecraftController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Afterburner1.SetActive(false);
         Afterburner2.SetActive(false);
-
+        if (SceneManager.GetActiveScene().name == "Space")
+        {
+            ControllMode = 2;
+        }
         if (ControllMode == 0)
         {
             ControlModeUI.text = "VTOL FULL control";
@@ -62,7 +67,7 @@ public class SpacecraftController : MonoBehaviour
     {
         HandleControls();
 
-        if (rb.position.y > 200 && SceneManager.GetActiveScene().name != "Space")
+        if (rb.position.y > yCoordinateToFly && SceneManager.GetActiveScene().name != "Space")
         {
             SceneManager.LoadScene("Space");
         }
@@ -116,14 +121,17 @@ public class SpacecraftController : MonoBehaviour
 
         if (Input.GetButtonDown("START"))
         {
-            ControllMode++;
-            if(ControllMode > 2)
-            {
-                ControllMode = 0;
-            }
             if (SceneManager.GetActiveScene().name == "Space")
             {
                 ControllMode = 2;
+            }
+            else
+            {
+                ControllMode++;
+                if (ControllMode > 2)
+                {
+                    ControllMode = 0;
+                }
             }
         }
         if (ControllMode == 0)
