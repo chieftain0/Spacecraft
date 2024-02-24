@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class SpacecraftController : MonoBehaviour
 {
     public TMP_Text ControlModeUI;
+    public TMP_Text GeneralMessage;
 
     public float thrust = 0.3f;
     public float torque = 0.1f;
 
-    public bool ManualControllMode = false;
+    public int ControllMode = 0;
 
 
     public float LX;
@@ -35,13 +37,17 @@ public class SpacecraftController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        if (ManualControllMode)
+        if (ControllMode == 0)
         {
-            ControlModeUI.text = "MANUAL control";
+            ControlModeUI.text = "VTOL FULL control";
         }
-        else
+        else if (ControllMode == 1) 
         {
-            ControlModeUI.text = "ARCADE control";
+            ControlModeUI.text = "VTOL ARCADE control";
+        }
+        else if (ControllMode == 2)
+        {
+            ControlModeUI.text = "JET control";
         }
     }
 
@@ -50,6 +56,18 @@ public class SpacecraftController : MonoBehaviour
     {
         HandleControls();
 
+        if (rb.position.y > 200 && SceneManager.GetActiveScene().name != "Space")
+        {
+            SceneManager.LoadScene("Space");
+        }
+        if (rb.position.y > 100 && SceneManager.GetActiveScene().name != "Space")
+        {
+            GeneralMessage.text = "Leaving the planet";
+        }
+        else
+        {
+            GeneralMessage.text = "";
+        }
 
 
         
@@ -87,30 +105,53 @@ public class SpacecraftController : MonoBehaviour
         TRIGGERS = (float)(Math.Round(LT + RT, 1));
 
 
+
+
         if (Input.GetButtonDown("START"))
         {
-            ManualControllMode = !ManualControllMode;
-            if (ManualControllMode)
+            ControllMode++;
+            if(ControllMode > 2)
             {
-                ControlModeUI.text = "MANUAL control";
+                ControllMode = 0;
             }
-            else
+            if (ControllMode == 0)
             {
-                ControlModeUI.text = "ARCADE control";
+                ControlModeUI.text = "VTOL FULL control";
+            }
+            else if (ControllMode == 1)
+            {
+                ControlModeUI.text = "VTOL ARCADE control";
+            }
+            else if (ControllMode == 2)
+            {
+                ControlModeUI.text = "JET control";
             }
         }
-        if (ManualControllMode == true)
+        if (ControllMode == 0)
         {
-            rb.AddRelativeForce(transform.right * thrust * LY);
-            rb.AddRelativeForce(-transform.forward * thrust * LX);
-            rb.AddRelativeForce(transform.up * thrust * TRIGGERS);
+            rb.AddForce(transform.right * thrust * LY);
+            rb.AddForce(-transform.forward * thrust * LX);
+            rb.AddForce(transform.up * thrust * TRIGGERS);
 
-            rb.AddRelativeTorque(-transform.forward * torque * RY);
-            rb.AddRelativeTorque(-transform.right * torque * RX);
-            rb.AddRelativeTorque(transform.up * torque * BUTTONS);
+            rb.AddTorque(-transform.forward * torque * RY);
+            rb.AddTorque(-transform.right * torque * RX);
+            rb.AddTorque(transform.up * torque * BUTTONS);
         }
-        else
+        else if (ControllMode == 1)
         {
+            rb.AddForce(transform.right * thrust * LY);
+            rb.AddForce(-transform.forward * thrust * LX);
+
+            rb.AddForce(transform.up * thrust * TRIGGERS);
+            rb.AddTorque(transform.up * torque * RX);
+
+        }
+        else if (ControllMode == 2)
+        {
+            rb.AddForce(transform.right * thrust * LY);
+            rb.AddTorque(-transform.forward * torque * RY);
+            rb.AddTorque(-transform.right * torque * RX);
+            rb.AddTorque(transform.up * torque * BUTTONS);
 
         }
     }
