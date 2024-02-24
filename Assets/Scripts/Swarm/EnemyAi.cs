@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAi : MonoBehaviour
 {
-    [SerializeField] List<GameObject> enemySwarms;
+    [SerializeField] List<SwarmManager> enemySwarms;
 
     public Transform safeSpot;
 
@@ -23,7 +23,7 @@ public class EnemyAi : MonoBehaviour
     {
         for(int i = 0; i < enemySwarms.Count; i++)
         {
-            enemySwarms[i].GetComponent<SwarmManager>().targetObject = safeSpot;
+            enemySwarms[i].targetObject = safeSpot;
         }
     }
 }
