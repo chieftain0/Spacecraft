@@ -9,8 +9,6 @@ public class SpacecraftController : MonoBehaviour
 {
     public TMP_Text ControlModeUI;
 
-
-
     public float thrust = 0.3f;
     public float torque = 0.1f;
 
@@ -22,12 +20,12 @@ public class SpacecraftController : MonoBehaviour
     public float RX;
     public float RY;
 
-    public float LB;
-    public float RB;
+    float LB;
+    float RB;
     public float BUTTONS;
 
-    public float LT;
-    public float RT;
+    float LT;
+    float RT;
     public float TRIGGERS;
 
     Rigidbody rb;
@@ -36,10 +34,29 @@ public class SpacecraftController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        if (ManualControllMode)
+        {
+            ControlModeUI.text = "MANUAL control";
+        }
+        else
+        {
+            ControlModeUI.text = "ARCADE control";
+        }
     }
 
     // Update is called once per frame
     void Update()
+    {
+        HandleControls();
+
+
+
+        
+
+    }
+
+    void HandleControls()
     {
         LX = (float)(Math.Round(Input.GetAxis("LX"), 1));
         LY = (float)(Math.Round(-Input.GetAxis("LY"), 1));
@@ -54,7 +71,7 @@ public class SpacecraftController : MonoBehaviour
         {
             LB = 0f;
         }
-        if(Input.GetButton("RB"))
+        if (Input.GetButton("RB"))
         {
             RB = 1f;
         }
@@ -62,28 +79,26 @@ public class SpacecraftController : MonoBehaviour
         {
             RB = 0f;
         }
-        BUTTONS = LB + RB;
+        BUTTONS = (float)(Math.Round(LB + RB, 1));
 
         LT = -Input.GetAxis("LT");
         RT = Input.GetAxis("RT");
 
-        TRIGGERS = LT + RT;
+        TRIGGERS = (float)(Math.Round(LT + RT, 1));
 
 
-        if(Input.GetButtonDown("START"))
+        if (Input.GetButtonDown("START"))
         {
             ManualControllMode = !ManualControllMode;
+            if (ManualControllMode)
+            {
+                ControlModeUI.text = "MANUAL control";
+            }
+            else
+            {
+                ControlModeUI.text = "ARCADE control";
+            }
         }
-        if (ManualControllMode)
-        {
-            ControlModeUI.text = "MANUAL control";
-        }
-        else
-        {
-            ControlModeUI.text = "ARCADE control";
-        }
-
-
         if (ManualControllMode == true)
         {
             rb.AddRelativeForce(transform.right * thrust * LY);
@@ -98,6 +113,5 @@ public class SpacecraftController : MonoBehaviour
         {
 
         }
-
     }
 }
