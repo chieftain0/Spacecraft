@@ -121,18 +121,18 @@ public class SpacecraftController : MonoBehaviour
 
         if (Input.GetButtonDown("START"))
         {
-            if (SceneManager.GetActiveScene().name == "Space")
-            {
-                ControllMode = 2;
-            }
-            else
-            {
+            //if (SceneManager.GetActiveScene().name == "Space")
+            //{
+            //    ControllMode = 2;
+            //}
+            //else
+            //{
                 ControllMode++;
                 if (ControllMode > 2)
                 {
                     ControllMode = 0;
                 }
-            }
+            //}
         }
         if (ControllMode == 0)
         {
