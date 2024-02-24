@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class SpacecraftController : MonoBehaviour
 {
@@ -40,12 +41,12 @@ public class SpacecraftController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        LX = Input.GetAxis("LX");
-        LY = -Input.GetAxis("LY");
-        RX = Input.GetAxis("RX");
-        RY = -Input.GetAxis("RY");
+        LX = (float)(Math.Round(Input.GetAxis("LX"), 1));
+        LY = (float)(Math.Round(-Input.GetAxis("LY"), 1));
+        RX = (float)(Math.Round(Input.GetAxis("RX"), 1));
+        RY = (float)(Math.Round(-Input.GetAxis("RY"), 1));
 
-        if(Input.GetButton("LB"))
+        if (Input.GetButton("LB"))
         {
             LB = -1f;
         }
