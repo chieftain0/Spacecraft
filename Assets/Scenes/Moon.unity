@@ -7752,6 +7752,7 @@ MonoBehaviour:
   thrust: 1
   torque: 10
   ControllMode: 0
+  maxVelocity: 60
   LX: 0
   LY: 0
   RX: 0
