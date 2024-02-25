@@ -18,7 +18,9 @@ public class SpacecraftController : MonoBehaviour
     public float thrust = 0.3f;
     public float torque = 0.1f;
 
-    public int ControllMode = 0;
+    private int ControllMode = 0;
+
+    public float JetMultiplier = 2;
 
 
     public float LX;
@@ -155,7 +157,7 @@ public class SpacecraftController : MonoBehaviour
         }
         else if (ControllMode == 2)
         {
-            rb.AddForce(transform.right * thrust * LY);
+            rb.AddForce(transform.right * thrust * LY * JetMultiplier);
             rb.AddTorque(-transform.forward * torque * RY);
             rb.AddTorque(-transform.right * torque * RX);
             rb.AddTorque(transform.up * torque * BUTTONS);
