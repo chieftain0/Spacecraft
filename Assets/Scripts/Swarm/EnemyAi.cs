@@ -4,24 +4,51 @@ using UnityEngine;
 
 public class EnemyAi : MonoBehaviour
 {
-    [SerializeField] List<SwarmManager> enemySwarms;
+    [SerializeField] List<WaveInfo> waveInfos;
+    private List<SwarmManager> enemySwarms;
+    [SerializeField] List<int> orderOfActivation;
 
     public List<Transform> safeSpots;
+    private float timer = 0f;
+    private float timeGoal;
+    public int currentIndex = 0;
 
+    [SerializeField] GameObject playerObject;
 
     void Start()
     {
-        AllEnemiesRetreat();
+        currentIndex = 0;
+        //AllEnemiesRetreat();
+        SpawnWave(waveInfos[currentIndex]);
+        timeGoal = waveInfos[currentIndex].timerUntilNextActivation;
     }
 
     void Update()
     {
+        if(timer > timeGoal & !waveInfos[currentIndex].isFinal)
+        {
+            currentIndex = currentIndex + 1;
+            SpawnWave(waveInfos[currentIndex]);
+            timer = 0f;
+            timeGoal = waveInfos[currentIndex].timerUntilNextActivation;     
+        }
         
+        timer += Time.deltaTime;
+        print("Timer " + timer + " time goal " + timeGoal);
     }
 
-    private void EnemyAttacks()
+    void SpawnWave(WaveInfo waveInfo)
     {
+      for(int i = 0; i < waveInfo.swarms.Count; i++)
+      {
+          waveInfo.swarms[i].gameObject.SetActive(true);
+          EnemyAttacks(waveInfo.swarms[i], playerObject.transform);
+      }
+    }
 
+    private void EnemyAttacks(SwarmManager swarm, Transform target)
+    {
+        swarm.targetObject = target;
     }
 
     private void AllEnemiesRetreat()
@@ -56,4 +83,12 @@ public class EnemyAi : MonoBehaviour
             Gizmos.DrawLine(safeSpots[safeSpots.Count - 1].position, safeSpots[0].position);
         }
     }
+}
+
+[System.Serializable]
+public class WaveInfo
+{
+    public List<SwarmManager> swarms;
+    public float timerUntilNextActivation;
+    public bool isFinal;
 }

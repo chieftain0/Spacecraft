@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Moon.unity
     guid: b7b3f984ae37dd8448f5a796a74a0abe
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Space.unity
-    guid: 9d6435dd70e22ab4d803a9914ae09159
+    guid: fe49334187d55aa4485972eab02bb8af
+  - enabled: 1
+    path: Assets/Scenes/Space_draft.unity
+    guid: 2f4c599d194895b4e9aae72495b3af2a
   m_configObjects: {}

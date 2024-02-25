@@ -18,7 +18,7 @@ public class SpacecraftController : MonoBehaviour
     public float thrust = 0.3f;
     public float torque = 0.1f;
 
-    public int ControllMode = 0;
+    public int ControllMode = 2;
 
 
     public float LX;
@@ -44,7 +44,7 @@ public class SpacecraftController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Afterburner1.SetActive(false);
         Afterburner2.SetActive(false);
-        if (SceneManager.GetActiveScene().name == "Space")
+        if (SceneManager.GetActiveScene().name == "Space" || (SceneManager.GetActiveScene().name == "Space_draft"))
         {
             ControllMode = 2;
         }
