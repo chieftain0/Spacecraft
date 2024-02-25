@@ -20,6 +20,8 @@ public class SpacecraftController : MonoBehaviour
 
     public int ControllMode = 2;
 
+    public float maxVelocity = 50f;
+
 
     public float LX;
     public float LY;
@@ -157,7 +159,7 @@ public class SpacecraftController : MonoBehaviour
         }
         else if (ControllMode == 2)
         {
-            if (rb.velocity.magnitude < 60f)
+            if (rb.velocity.magnitude < maxVelocity)
             {
                 rb.AddForce(transform.right * thrust * LY);
 
