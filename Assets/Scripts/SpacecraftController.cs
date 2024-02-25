@@ -81,6 +81,7 @@ public class SpacecraftController : MonoBehaviour
         }
         VelocityIndicator.text = Math.Round(rb.velocity.magnitude).ToString() + " m/s";
 
+        Debug.LogError("Velocity " + rb.velocity.magnitude.ToString());
 
 
 
@@ -136,6 +137,7 @@ public class SpacecraftController : MonoBehaviour
         }
         if (ControllMode == 0)
         {
+            
             rb.AddForce(transform.right * thrust * LY);
             rb.AddForce(-transform.forward * thrust * LX);
             rb.AddForce(transform.up * thrust * TRIGGERS);
@@ -155,7 +157,12 @@ public class SpacecraftController : MonoBehaviour
         }
         else if (ControllMode == 2)
         {
-            rb.AddForce(transform.right * thrust * LY);
+            if (rb.velocity.magnitude < 60f)
+            {
+                rb.AddForce(transform.right * thrust * LY);
+
+            }
+            //rb.AddForce(transform.right * thrust * LY);
             rb.AddTorque(-transform.forward * torque * RY);
             rb.AddTorque(-transform.right * torque * RX);
             rb.AddTorque(transform.up * torque * BUTTONS);

@@ -175,7 +175,7 @@ MonoBehaviour:
   swarmIndex: 0
   noClumpingRadius: 5
   localAreaRadius: 10
-  speed: 100
+  speed: 40
   steeringSpeed: 200
   separationFraction: 0.7
   alignmentFraction: 0.15
