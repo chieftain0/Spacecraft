@@ -137,8 +137,8 @@ public class SpacecraftController : MonoBehaviour
         if (ControllMode == 0)
         {
             rb.AddForce(transform.right * thrust * LY);
-           // rb.AddForce(-transform.forward * thrust * LX);
-           // rb.AddForce(transform.up * thrust * TRIGGERS);
+            rb.AddForce(-transform.forward * thrust * LX);
+            rb.AddForce(transform.up * thrust * TRIGGERS);
 
             rb.AddTorque(-transform.forward * torque * RY);
             rb.AddTorque(-transform.right * torque * RX);
@@ -155,10 +155,10 @@ public class SpacecraftController : MonoBehaviour
         }
         else if (ControllMode == 2)
         {
-            //rb.AddForce(transform.right * thrust * LY);
-            //rb.AddTorque(-transform.forward * torque * RY);
-            //rb.AddTorque(-transform.right * torque * RX);
-            //rb.AddTorque(transform.up * torque * BUTTONS);
+            rb.AddForce(transform.right * thrust * LY);
+            rb.AddTorque(-transform.forward * torque * RY);
+            rb.AddTorque(-transform.right * torque * RX);
+            rb.AddTorque(transform.up * torque * BUTTONS);
 
             if(LY > 0.8)
             {
