@@ -24,12 +24,12 @@ public class Asteroidspawner : MonoBehaviour
     {
         for (int i = 0; i < numberOfAsteroids; i++)
         {
-            Vector3 randomPosition = Random.insideUnitSphere * spawnRadius;
+            Vector3 randomPosition = Random.insideUnitSphere * spawnRadius + new Vector3(Random.Range(0,1), Random.Range(0, 1), Random.Range(0, 1)) * player.transform.localScale.x;
 
             Vector3 spawnPosition = player.position + randomPosition;
 
             GameObject asteroidPrefab = asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length)];
-            asteroidPrefab.transform.localScale = new Vector3(3,3,3);
+            //asteroidPrefab.transform.localScale = new Vector3(3,3,3);
 
             GameObject asteroid = Instantiate(asteroidPrefab, spawnPosition, Quaternion.identity);
 
