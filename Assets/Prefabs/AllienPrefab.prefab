@@ -158,8 +158,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.908144, y: 1, z: 1}
-  m_Center: {x: 0.454072, y: 0, z: 0}
+  m_Size: {x: 1.908144, y: 2.2516587, z: 3.293479}
+  m_Center: {x: 0.454072, y: -0.08720565, z: 0.49499273}
 --- !u!114 &-1875745932041579965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,8 +175,9 @@ MonoBehaviour:
   swarmIndex: 0
   noClumpingRadius: 5
   localAreaRadius: 10
-  speed: 20
+  speed: 100
   steeringSpeed: 200
   separationFraction: 0.7
   alignmentFraction: 0.15
   cohesionFraction: 0.15
+  swarmManager: {fileID: 0}

@@ -28,6 +28,8 @@ public class BoidController : MonoBehaviour
     BoidController leaderBoid;
     float angle;
 
+    public SwarmManager swarmManager;
+
     public void SimulateMovement(List<BoidController> other, float time, Transform targetObject)
     {
 

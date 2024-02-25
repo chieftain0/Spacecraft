@@ -10,11 +10,9 @@ public class SwarmManager : MonoBehaviour
     [SerializeField] float initialSpread;
 
     public Transform targetObject;
-    public Transform safeSpot;
 
 
-    [Header("Internal")]
-    private List<BoidController> _boids;
+    public List<BoidController> _boids;
 
     private void Start()
     {
@@ -39,6 +37,7 @@ public class SwarmManager : MonoBehaviour
         var boidInstance = Instantiate(prefab, this.transform.position, Quaternion.identity);
         boidInstance.transform.position += new Vector3(Random.Range(-initialSpread, initialSpread), Random.Range(-initialSpread, initialSpread), Random.Range(-initialSpread, initialSpread));
         BoidController boidController = boidInstance.GetComponent<BoidController>();
+        boidController.swarmManager = this.GetComponent<SwarmManager>();
         _boids.Add(boidController);
     }
 }

@@ -18,9 +18,7 @@ public class SpacecraftController : MonoBehaviour
     public float thrust = 0.3f;
     public float torque = 0.1f;
 
-    private int ControllMode = 0;
-
-    public float JetMultiplier = 2;
+    public int ControllMode = 0;
 
 
     public float LX;
@@ -123,24 +121,24 @@ public class SpacecraftController : MonoBehaviour
 
         if (Input.GetButtonDown("START"))
         {
-            //if (SceneManager.GetActiveScene().name == "Space")
-            //{
-            //    ControllMode = 2;
-            //}
-            //else
-            //{
+            if (SceneManager.GetActiveScene().name == "Space")
+            {
+                ControllMode = 2;
+            }
+            else
+            {
                 ControllMode++;
                 if (ControllMode > 2)
                 {
                     ControllMode = 0;
                 }
-            //}
+            }
         }
         if (ControllMode == 0)
         {
             rb.AddForce(transform.right * thrust * LY);
-            rb.AddForce(-transform.forward * thrust * LX);
-            rb.AddForce(transform.up * thrust * TRIGGERS);
+           // rb.AddForce(-transform.forward * thrust * LX);
+           // rb.AddForce(transform.up * thrust * TRIGGERS);
 
             rb.AddTorque(-transform.forward * torque * RY);
             rb.AddTorque(-transform.right * torque * RX);
@@ -157,10 +155,10 @@ public class SpacecraftController : MonoBehaviour
         }
         else if (ControllMode == 2)
         {
-            rb.AddForce(transform.right * thrust * LY * JetMultiplier);
-            rb.AddTorque(-transform.forward * torque * RY);
-            rb.AddTorque(-transform.right * torque * RX);
-            rb.AddTorque(transform.up * torque * BUTTONS);
+            //rb.AddForce(transform.right * thrust * LY);
+            //rb.AddTorque(-transform.forward * torque * RY);
+            //rb.AddTorque(-transform.right * torque * RX);
+            //rb.AddTorque(transform.up * torque * BUTTONS);
 
             if(LY > 0.8)
             {

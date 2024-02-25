@@ -18,6 +18,14 @@ public class SingleEnemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<SimpleShooting>().GotHit(5f);
+        }
+    }
+
+    private void GotHit()
+    {
+
     }
 }
