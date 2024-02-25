@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 //using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SimpleShooting : MonoBehaviour
 {
@@ -16,11 +18,14 @@ public class SimpleShooting : MonoBehaviour
 
     [SerializeField] EnemyAi enemyManager;
 
+    [SerializeField] Slider healthBar;
+
     float health;
 
     void Start()
     {
         health = maxHealth;
+        healthBar.maxValue = health;
 
         explosionEffect.Stop();
 
@@ -47,6 +52,13 @@ public class SimpleShooting : MonoBehaviour
                 EnemyShot(hitInfo);
             }
         }
+
+        healthBar.value = health;
+
+        if(health < 0f)
+        {
+            GameOver();
+        }
        
     }
 
@@ -70,14 +82,24 @@ public class SimpleShooting : MonoBehaviour
         GameObject go = Instantiate(laserObject, laserPlaceHolder.position, transform.localRotation * Quaternion.Euler(0,0,90f));
        
         go.GetComponent<LaserProjectile>().startVelocity = transform.right * 3500f;
-        
-
     }
 
-    
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Meteor")
+        {
+            GotHit(70f);
+        }
+    }
     public void GotHit(float damage)
     {
         health -= damage;
+        
+    }
+
+    public void GameOver()
+    {
+        Debug.LogError("You lost");
+        SceneManager.LoadScene("Space_draft");
     }
 }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class EnemyAi : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class EnemyAi : MonoBehaviour
     private float timeGoal;
     public int currentIndex = 0;
 
-
+    [Header("External stats")]
     private float totalEnemies = 0;
     public float totalScore = 0;
     public float enemiesKilled = 0;
@@ -53,6 +55,11 @@ public class EnemyAi : MonoBehaviour
             SpawnWave(waveInfos[currentIndex]);
             timer = 0f;
             timeGoal = waveInfos[currentIndex].timerUntilNextActivation;     
+        }
+
+        if (waveInfos[currentIndex].isFinal)
+        {
+            LevelComplete();
         }
         
         timer += Time.deltaTime;
@@ -99,6 +106,15 @@ public class EnemyAi : MonoBehaviour
         int remainingSeconds = seconds % 60;
 
         return minutes + " minutes and " + remainingSeconds + " seconds";
+    }
+
+    public void LevelComplete()
+    {
+        if((totalTime - timePassed) < 0f || enemiesKilled == totalEnemies)
+        {
+            Debug.LogError("Level is complete!");
+            SceneManager.LoadScene("Space_draft");
+        }
     }
 
     void OnDrawGizmos()

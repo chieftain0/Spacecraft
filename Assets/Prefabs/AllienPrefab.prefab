@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 2484292939661873000}
   - component: {fileID: 6450717758572167446}
   - component: {fileID: -1875745932041579965}
+  - component: {fileID: 141206563748222218}
   m_Layer: 6
   m_Name: AllienPrefab
   m_TagString: Untagged
@@ -181,3 +182,15 @@ MonoBehaviour:
   alignmentFraction: 0.15
   cohesionFraction: 0.15
   swarmManager: {fileID: 0}
+--- !u!114 &141206563748222218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5099965774316438876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ed6e11fe13c894dafc52a7ae3fd756, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

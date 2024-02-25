@@ -23,9 +23,4 @@ public class SingleEnemy : MonoBehaviour
             other.gameObject.GetComponent<SimpleShooting>().GotHit(5f);
         }
     }
-
-    private void GotHit()
-    {
-
-    }
 }

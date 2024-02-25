@@ -83,7 +83,7 @@ public class SpacecraftController : MonoBehaviour
         }
         VelocityIndicator.text = Math.Round(rb.velocity.magnitude).ToString() + " m/s";
 
-        Debug.LogError("Velocity " + rb.velocity.magnitude.ToString());
+        //Debug.LogError("Velocity " + rb.velocity.magnitude.ToString());
 
 
 
