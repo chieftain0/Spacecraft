@@ -6,7 +6,7 @@ public class SwarmManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] BoidController boidPrefab;
-    [SerializeField] int spawnBoids;
+    public int spawnBoids;
     [SerializeField] float initialSpread;
 
     public Transform targetObject;

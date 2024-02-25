@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyAi : MonoBehaviour
@@ -10,10 +11,23 @@ public class EnemyAi : MonoBehaviour
 
     public List<Transform> safeSpots;
     private float timer = 0f;
+    private float timePassed = 0f;
     private float timeGoal;
     public int currentIndex = 0;
 
+
+    private float totalEnemies = 0;
+    public float totalScore = 0;
+    public float enemiesKilled = 0;
+    private float totalTime = 0;
+
+
     [SerializeField] GameObject playerObject;
+
+    [Header("UI")]
+    [SerializeField] TextMeshProUGUI enemyCount;
+    [SerializeField] TextMeshProUGUI scoreCount;
+    [SerializeField] TextMeshProUGUI timeCount;
 
     void Start()
     {
@@ -21,11 +35,19 @@ public class EnemyAi : MonoBehaviour
         //AllEnemiesRetreat();
         SpawnWave(waveInfos[currentIndex]);
         timeGoal = waveInfos[currentIndex].timerUntilNextActivation;
+
+        CountStats();
+
+        
     }
 
     void Update()
     {
-        if(timer > timeGoal & !waveInfos[currentIndex].isFinal)
+        timePassed += Time.deltaTime;
+        DisplayStats();
+
+
+        if (timer > timeGoal & !waveInfos[currentIndex].isFinal)
         {
             currentIndex = currentIndex + 1;
             SpawnWave(waveInfos[currentIndex]);
@@ -51,22 +73,32 @@ public class EnemyAi : MonoBehaviour
         swarm.targetObject = target;
     }
 
-    private void AllEnemiesRetreat()
+    void CountStats()
     {
-        for(int i = 0; i < enemySwarms.Count; i++)
+        for (int i = 0; i < waveInfos.Count; i++)
         {
-            EnemyRetreats(enemySwarms[i]);
+            for (int j = 0; j < waveInfos[i].swarms.Count; j++)
+            {
+                totalEnemies += waveInfos[i].swarms[j].spawnBoids;
+            }
+
+            totalTime += waveInfos[i].timerUntilNextActivation;
         }
     }
 
-    private void EnemyRetreats(SwarmManager swarm)
+    void DisplayStats()
     {
-        swarm.targetObject = safeSpots[Random.Range(0, safeSpots.Count)];
+        enemyCount.text = "Enemies killed " + enemiesKilled.ToString() + " out of " + totalEnemies.ToString();
+        scoreCount.text = "Score " + totalScore.ToString();
+        timeCount.text = "Time left " + (ConvertTime((int)(totalTime - timePassed)));
     }
 
-    private void EnemyDefends(SwarmManager swarm, Transform objectToDefend)
+    string ConvertTime(int seconds)
     {
-        swarm.targetObject = objectToDefend;
+        int minutes = seconds / 60;
+        int remainingSeconds = seconds % 60;
+
+        return minutes + " minutes and " + remainingSeconds + " seconds";
     }
 
     void OnDrawGizmos()

@@ -14,6 +14,8 @@ public class SimpleShooting : MonoBehaviour
     [SerializeField] GameObject laserObject;
     [SerializeField] Transform laserPlaceHolder;
 
+    [SerializeField] EnemyAi enemyManager;
+
     float health;
 
     void Start()
@@ -58,6 +60,8 @@ public class SimpleShooting : MonoBehaviour
       //explosionEffect.gameObject.SetActive(true);
       explosionEffect.Play();
 
+        enemyManager.enemiesKilled += 1;
+        enemyManager.totalScore += 100;
     }
 
     public void LaserEffect()
