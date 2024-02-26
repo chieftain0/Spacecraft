@@ -20,6 +20,8 @@ public class SimpleShooting : MonoBehaviour
 
     [SerializeField] Slider healthBar;
 
+    [SerializeField] string menuScene;
+
     float health;
 
     void Start()
@@ -100,6 +102,6 @@ public class SimpleShooting : MonoBehaviour
     public void GameOver()
     {
         Debug.LogError("You lost");
-        SceneManager.LoadScene("Space_draft");
+        SceneManager.LoadScene(menuScene);
     }
 }

@@ -20,7 +20,7 @@ public class SingleEnemy : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<SimpleShooting>().GotHit(5f);
+            other.gameObject.GetComponent<SimpleShooting>().GotHit(8f);
         }
     }
 }

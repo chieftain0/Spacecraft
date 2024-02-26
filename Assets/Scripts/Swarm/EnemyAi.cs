@@ -23,6 +23,8 @@ public class EnemyAi : MonoBehaviour
     public float enemiesKilled = 0;
     private float totalTime = 0;
 
+    public string NextSceneToLoad;
+
 
     [SerializeField] GameObject playerObject;
 
@@ -31,15 +33,21 @@ public class EnemyAi : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreCount;
     [SerializeField] TextMeshProUGUI timeCount;
 
+    public TextMeshProUGUI ControlModeUI;
+
+
+    bool lastWaveSpawned = false;
+
     void Start()
     {
         currentIndex = 0;
         //AllEnemiesRetreat();
-        SpawnWave(waveInfos[currentIndex]);
+        //SpawnWave(waveInfos[currentIndex]);
         timeGoal = waveInfos[currentIndex].timerUntilNextActivation;
 
         CountStats();
-
+        
+        StartCoroutine(DisplayMissionText("KIll the enemies or survive", (waveInfos[currentIndex].timerUntilNextActivation) * 0.7f));
         
     }
 
@@ -51,17 +59,33 @@ public class EnemyAi : MonoBehaviour
 
         if (timer > timeGoal & !waveInfos[currentIndex].isFinal)
         {
-            currentIndex = currentIndex + 1;
+            
             SpawnWave(waveInfos[currentIndex]);
+
+            currentIndex = currentIndex + 1;
             timer = 0f;
             timeGoal = waveInfos[currentIndex].timerUntilNextActivation;     
         }
 
-        if (waveInfos[currentIndex].isFinal)
+        if (waveInfos[currentIndex].isFinal & !lastWaveSpawned & timer > timeGoal)
+        {
+            for (int i = 0; i < waveInfos[currentIndex].swarms.Count; i++)
+            {
+                waveInfos[currentIndex].swarms[i].gameObject.SetActive(true);
+                EnemyAttacks(waveInfos[currentIndex].swarms[i], playerObject.transform);
+            }
+
+            //StopAllCoroutines();
+            StartCoroutine(DisplayMissionText("New wave coming!", 1f));
+
+            lastWaveSpawned = true;
+        }
+
+        if(waveInfos[currentIndex].isFinal & lastWaveSpawned)
         {
             LevelComplete();
         }
-        
+
         timer += Time.deltaTime;
         print("Timer " + timer + " time goal " + timeGoal);
     }
@@ -73,6 +97,9 @@ public class EnemyAi : MonoBehaviour
           waveInfo.swarms[i].gameObject.SetActive(true);
           EnemyAttacks(waveInfo.swarms[i], playerObject.transform);
       }
+        
+        //StopAllCoroutines();
+        StartCoroutine(DisplayMissionText("New wave coming!", 1f));
     }
 
     private void EnemyAttacks(SwarmManager swarm, Transform target)
@@ -91,6 +118,17 @@ public class EnemyAi : MonoBehaviour
 
             totalTime += waveInfos[i].timerUntilNextActivation;
         }
+
+        totalTime += Random.Range(50f, 70f);
+    }
+
+    private IEnumerator DisplayMissionText(string message, float time)
+    {
+        ControlModeUI.text = message;
+        yield return new WaitForSeconds(time);
+        ControlModeUI.text = string.Empty;
+
+        Debug.LogError("Coroutine " + message);
     }
 
     void DisplayStats()
@@ -113,7 +151,7 @@ public class EnemyAi : MonoBehaviour
         if((totalTime - timePassed) < 0f || enemiesKilled == totalEnemies)
         {
             Debug.LogError("Level is complete!");
-            SceneManager.LoadScene("Space_draft");
+            SceneManager.LoadScene("NextSceneToLoad");
         }
     }
 

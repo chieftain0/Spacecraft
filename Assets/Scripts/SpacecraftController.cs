@@ -46,22 +46,25 @@ public class SpacecraftController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Afterburner1.SetActive(false);
         Afterburner2.SetActive(false);
-        if (SceneManager.GetActiveScene().name == "Space" || (SceneManager.GetActiveScene().name == "Space_draft"))
-        {
-            ControllMode = 2;
-        }
-        if (ControllMode == 0)
-        {
-            ControlModeUI.text = "VTOL FULL control";
-        }
-        else if (ControllMode == 1) 
-        {
-            ControlModeUI.text = "VTOL ARCADE control";
-        }
-        else if (ControllMode == 2)
-        {
-            ControlModeUI.text = "JET control";
-        }
+
+        ControllMode = 2;
+
+        //if (SceneManager.GetActiveScene().name == "Space" || (SceneManager.GetActiveScene().name == "Space_draft"))
+        //{
+        //    ControllMode = 2;
+        //}
+        //if (ControllMode == 0)
+        //{
+        //    ControlModeUI.text = "VTOL FULL control";
+        //}
+        //else if (ControllMode == 1) 
+        //{
+        //    ControlModeUI.text = "VTOL ARCADE control";
+        //}
+        //else if (ControllMode == 2)
+        //{
+        //    ControlModeUI.text = "JET control";
+        //}
     }
 
     // Update is called once per frame
@@ -71,15 +74,15 @@ public class SpacecraftController : MonoBehaviour
 
         if (rb.position.y > yCoordinateToFly && SceneManager.GetActiveScene().name != "Space")
         {
-            SceneManager.LoadScene("Space");
+            //SceneManager.LoadScene("Space");
         }
         if (rb.position.y > 100 && SceneManager.GetActiveScene().name != "Space")
         {
-            GeneralMessage.text = "Leaving the planet";
+            //GeneralMessage.text = "Leaving the planet";
         }
         else
         {
-            GeneralMessage.text = "";
+            //GeneralMessage.text = "";
         }
         VelocityIndicator.text = Math.Round(rb.velocity.magnitude).ToString() + " m/s";
 

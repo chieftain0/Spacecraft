@@ -28,7 +28,7 @@ public class CasualFlight : MonoBehaviour
     public float _thrust = 0.3f;
     public float torque = 0.1f;
 
-    private int ControllMode = 0;
+    
     float LB;
     float RB;
     public float BUTTONS;
