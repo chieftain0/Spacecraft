@@ -15,12 +15,12 @@ public class SpacecraftController : MonoBehaviour
     public GameObject Afterburner1;
     public GameObject Afterburner2;
 
-    public float thrust = 0.3f;
-    public float torque = 0.1f;
+    public float thrust;
+    public float torque;
 
     public int ControllMode = 2;
 
-    public float maxVelocity = 50f;
+    public float maxVelocity;
 
 
     public float LX;
@@ -39,6 +39,8 @@ public class SpacecraftController : MonoBehaviour
     public float yCoordinateToFly;
 
     Rigidbody rb;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -125,21 +127,21 @@ public class SpacecraftController : MonoBehaviour
         TRIGGERS = (float)(Math.Round(LT + RT, 1));
 
 
-        if (Input.GetButtonDown("START"))
-        {
-            if (SceneManager.GetActiveScene().name == "Space")
-            {
-                ControllMode = 2;
-            }
-            else
-            {
-                ControllMode++;
-                if (ControllMode > 2)
-                {
-                    ControllMode = 0;
-                }
-            }
-        }
+        //if (Input.GetButtonDown("START"))
+        //{
+        //    if (SceneManager.GetActiveScene().name == "Space")
+        //    {
+        //        ControllMode = 2;
+        //    }
+        //    else
+        //    {
+        //        ControllMode++;
+        //        if (ControllMode > 2)
+        //        {
+        //            ControllMode = 0;
+        //        }
+        //    }
+        //}
         if (ControllMode == 0)
         {
             
